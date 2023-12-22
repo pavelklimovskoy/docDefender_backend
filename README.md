@@ -4,7 +4,7 @@
 
 Для запуска серверной части проекта необходимо выполнить:
 
-https://github.com/pavelklimovskoy/docDefender_backend.git
+git clone https://github.com/pavelklimovskoy/docDefender_backend.git
 
 docker-compose build
 
