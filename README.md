@@ -1,6 +1,6 @@
 # docDefender
 
-![Логотип приложения](https://sun9-23.userapi.com/impf/oQzhjGFgPCx0DtGSshB9_qfn4RnT0qWbd4zy_g/YiieGTIhR9I.jpg?size=1012x644&quality=96&sign=b1f2709e9f6ef4a01b7359bbb747ed52&type=album)
+![Логотип приложения](https://sun9-30.userapi.com/impf/XD-M-TMoXm3TFMhPRckXCN2TVMRMHCq5Merv7Q/31FQ-aW-lUU.jpg?size=512x326&quality=96&sign=0bc18cb00087f27011dea0ea002339ab&type=album)
 
 Небольшая утилита для удаления персональной информации из документов
 
