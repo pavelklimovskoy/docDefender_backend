@@ -2,7 +2,7 @@
 
 Небольшая утилита для удаления персональной информации из документов
 
-Команда "Фантасты" хакатон CyberGarden 22.12.2023
+Команда _"Фантасты"_ хакатон *CyberGarden 22.12.2023*
 
 ## Используемые технологии
 
@@ -22,7 +22,7 @@
 `git clone https://github.com/pavelklimovskoy/docDefender_backend.git`
 
 Перейти в папку с репозиторием
-'cd docDefender_backend-master'
+`cd docDefender_backend-master`
 
 Сборку контейнеров
 `docker-compose build`
