@@ -1,11 +1,18 @@
+# docDefender
+
 Небольшая утилита для удаления персональной информации из документов
 
 Команда "Фантасты" хакатон CyberGarden 22.12.2023
 
-Для запуска серверной части проекта необходимо выполнить:
+## Запуск серверной части
 
-git clone https://github.com/pavelklimovskoy/docDefender_backend.git
+Для запуска серверной части проекта необходимо выполнить следующие команды:
 
-docker-compose build
+Клонирование репозитория
+`git clone https://github.com/pavelklimovskoy/docDefender_backend.git`
 
-docker-compose up -d
+Сборку контейнеров
+`docker-compose build`
+
+Запуск контейнеров в фоне
+`docker-compose up -d`
