@@ -1,5 +1,7 @@
 # docDefender
 
+![Логотип приложения](https://sun9-23.userapi.com/impf/oQzhjGFgPCx0DtGSshB9_qfn4RnT0qWbd4zy_g/YiieGTIhR9I.jpg?size=1012x644&quality=96&sign=b1f2709e9f6ef4a01b7359bbb747ed52&type=album)
+
 Небольшая утилита для удаления персональной информации из документов
 
 Команда _"Фантасты"_ хакатон *CyberGarden 22.12.2023*
