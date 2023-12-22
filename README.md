@@ -15,6 +15,10 @@
 - Nginx
 - Postgres
 - Swagger
+- faker
+- pytorch
+- cv2
+- pillow
 
 ## Запуск серверной части
 
