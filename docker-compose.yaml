@@ -1,0 +1,44 @@
+version: '3.7'
+
+name: "docdefender-drf"
+
+services:
+  db:
+    image: postgres
+    container_name: docdefender-database-postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: maybe-strong-password-!!!
+      POSTGRES_DB: django-db
+      POSTGRES_USER: database-member-2023
+      PGPORT: 5000
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5000:5000"
+
+  nginx:
+    container_name: nginx-reverse-proxy
+    depends_on:
+      - main
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    restart: always
+    ports:
+      - '80:8080'
+
+
+  main:
+    container_name: backend-server
+    depends_on:
+      - db
+    command: "poetry run python manage.py runserver 0.0.0.0:8000"
+    build: .
+    env_file:
+      - configs/prod.env
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8000:8000"
+
