@@ -29,3 +29,7 @@
 
 Запуск контейнеров в фоне
 `docker-compose up -d`
+
+## Ручное тестирование API
+
+[Коллекция postman для ознакомления с API](https://www.postman.com/lunar-satellite-45225/workspace/docdefender/collection/9576648-1518e86f-302a-4181-85e3-30d8778cff45?action=share&creator=9576648)
