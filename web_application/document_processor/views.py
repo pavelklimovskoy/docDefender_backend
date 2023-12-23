@@ -7,6 +7,7 @@ from django.core.files.storage import default_storage
 from docDefender_backend import settings
 from docDefender_backend.settings import MEDIA_ROOT
 from .processors.docx_processor import DocxProcessor
+from .processors.processors import DocumentProcessorSelector
 from .processors.txt_processor import TxtProcessor
 from .models import FileModel
 
@@ -44,8 +45,8 @@ class UploadFilesView(APIView):
         )
         new_file.save()
 
-        doc = TxtProcessor(
-            document_name=file_name
+        doc = DocumentProcessorSelector().get_processor(
+            filename=file_name
         )
 
         doc.anonymize_doc()

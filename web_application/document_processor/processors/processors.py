@@ -33,12 +33,11 @@ class DocumentProcessorSelector:
         return file_extension
 
     def get_processor(
-            self, filename: str, file_path: str
+            self, filename: str
     ) -> TxtProcessor | DocxProcessor | DocProcessor | PNGProcessor | JPGProcessor | PDFProcessor | XMLProcessor:
         """
         Получение класса для обработки файла по его расширению
         :param filename:
-        :param file_path:
         :return:
         """
 
@@ -47,11 +46,12 @@ class DocumentProcessorSelector:
 
         match self._get_file_extension(filename):
             case ".txt":
-                return TxtProcessor()
+                return TxtProcessor(
+                    document_name=filename
+                )
             case ".docx":
                 return DocxProcessor(
                     document_name=filename,
-                    file_path=file_path
                 )
             case ".doc":
                 return DocProcessor()
@@ -77,7 +77,6 @@ def main() -> None:
 
     doc: DocxProcessor = DocumentProcessorSelector().get_processor(
         filename="document.docx",
-        file_path=""
     )
 
     doc.stupid_phone_numbers_hiding()
