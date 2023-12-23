@@ -1,6 +1,8 @@
 import re
 from docx import Document
 
+from docDefender_backend import settings
+
 
 class DocxProcessor:
     # PHONE_NUMBER_REGEXP = r'^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$'
@@ -17,16 +19,16 @@ class DocxProcessor:
         return '#' * 13
 
     def save_document(self):
-        self.document.save(f'{self.output_document_name}.docx')
+        self.document.save(f'{settings.MEDIA_ROOT}anon_{self.output_document_name}')
 
-    def __init__(self, document_name: str, file_path: str):
+    def __init__(self, document_name: str):
         self.document_name: str = document_name
-        self.output_document_name: str = f'{self.document_name}_anonymized'
+        self.output_document_name: str = f'{self.document_name}'
 
         self.NUMBER_PATTERN = re.compile(self.PHONE_NUMBER_REGEXP)
         self.INN_PATTERN = re.compile(self.INN_REGEXP)
 
-        self.document = Document(self.document_name)
+        self.document = Document(settings.MEDIA_ROOT + self.document_name)
 
     def stupid_phone_numbers_hiding(self):
         '''
@@ -68,6 +70,11 @@ class DocxProcessor:
                     entry,
                     self._get_hided_number(self._get_hided_inn())
                 )
+
+    def anonymize_doc(self) -> None:
+        self.stupid_phone_numbers_hiding()
+        self.stupid_inn_hiding()
+
 
     def _print_content(self) -> None:
         """

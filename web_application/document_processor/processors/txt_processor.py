@@ -1,4 +1,7 @@
+import os
 import re
+
+from docDefender_backend import settings
 
 
 class TxtProcessor:
@@ -9,18 +12,20 @@ class TxtProcessor:
     PHONE_NUMBER_REGEXP: str = r'\b\+?[7,8](\s*\d{3}\s*\d{3}\s*\d{2}\s*\d{2})\b'
     INN_REGEXP: str = r'ИНН'
 
-    def __init__(self, document_name: str, file_path: str):
+    def __init__(self, document_name: str):
         self.document_name: str = document_name
-        self.output_document_name: str = f'{self.document_name}_anonymized'
+        self.output_document_name: str = f'{self.document_name}'
 
         self.NUMBER_PATTERN = re.compile(self.PHONE_NUMBER_REGEXP)
         self.INN_PATTERN = re.compile(self.INN_REGEXP)
 
-        self.document = open(self.document_name, 'r')
+        self.document = open(settings.MEDIA_ROOT + self.document_name, 'r')
 
         self.document_content = self.document.read()
 
         self.document.close()
+
+        # os.remove(settings.MEDIA_ROOT + self.document_name)
 
     def _print_content(self) -> None:
         """
@@ -39,7 +44,7 @@ class TxtProcessor:
                 self.document_content = self.document_content.replace(self.document_content[i], "#")
 
     def save_document(self):
-        output_file = open(f'{self.output_document_name}.txt', 'w')
+        output_file = open(f'{settings.MEDIA_ROOT}anon_{self.output_document_name}', 'w')
         output_file.write(self.document_content)
         output_file.close()
 

@@ -1,4 +1,3 @@
-
 from django.http import FileResponse
 from django.shortcuts import render
 from rest_framework.response import Response
@@ -7,6 +6,8 @@ from django.core.files.storage import default_storage
 
 from docDefender_backend import settings
 from docDefender_backend.settings import MEDIA_ROOT
+from .processors.docx_processor import DocxProcessor
+from .processors.txt_processor import TxtProcessor
 
 
 # Create your views here.
@@ -31,38 +32,27 @@ class UploadFilesView(APIView):
     def post(self, request, format=None):
         file_obj = request.FILES['file']
 
-        print(request.FILES.keys())
-
-        print(file_obj)
-        # print(file_obj.read_lines())
-
         file = request.FILES['file']
         file_name = default_storage.save(file.name, file)
-
         file = default_storage.open(file_name)
         file_url = default_storage.url(file_name)
 
-        # file_location = default_storage.location(file_name)
+        # doc = TxtProcessor(
+        #     document_name=file_name
+        # )
         #
-        # print(file_url)
+        # doc.anonymize_doc()
         #
-        # print(file_location)
+        # doc.save_document()
 
-        print(settings.MEDIA_ROOT + file_name)
+        doc = DocxProcessor(
+            document_name=file_name
+        )
 
+        doc.anonymize_doc()
 
+        doc.save_document()
 
-        response = FileResponse(open(settings.MEDIA_ROOT + file_name, 'rb'))
+        response = FileResponse(open(f'{settings.MEDIA_ROOT}anon_{file_name}', 'rb'))
 
         return response
-
-
-'''
-#  Saving POST'ed file to storage
-file = request.FILES['myfile']
-file_name = default_storage.save(file.name, file)
-
-#  Reading file from storage
-file = default_storage.open(file_name)
-file_url = default_storage.url(file_name)
-'''
