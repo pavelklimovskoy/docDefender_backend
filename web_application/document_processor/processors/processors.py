@@ -1,6 +1,3 @@
-import re
-from docx import Document
-
 from document_processor.processors.doc_processor import DocProcessor
 from document_processor.processors.docx_processor import DocxProcessor
 from document_processor.processors.jpg_processor import JPGProcessor
@@ -8,20 +5,20 @@ from document_processor.processors.pdf_processor import PDFProcessor
 from document_processor.processors.png_processor import PNGProcessor
 from document_processor.processors.txt_processor import TxtProcessor
 from document_processor.processors.xml_processor import XMLProcessor
+from docx import Document
 
 
 class DocumentProcessorSelector:
     SUPPORTED_EXTENSION: list[str] = [".doc", "docx", ".txt", "png", "jpg", "pdf", "xml"]
 
-    def _is_supported_extension(self, filename: str) -> bool:
-        if filename[-3:] in self.SUPPORTED_EXTENSION:
+    def _is_supported_extension(self, file_name: str) -> bool:
+        if file_name[-3:] in self.SUPPORTED_EXTENSION:
             return True
-        if filename[-4:] in self.SUPPORTED_EXTENSION:
+        if file_name[-4:] in self.SUPPORTED_EXTENSION:
             return True
         return False
 
-    @classmethod
-    def _get_file_extension(cls, file_name: str) -> str:
+    def _get_file_extension(self, file_name: str) -> str:
         separator_pos: int | None = None
         for i in range(len(file_name) - 1, 0, -1):
             if file_name[i] == '.':
@@ -35,8 +32,9 @@ class DocumentProcessorSelector:
 
         return file_extension
 
-    @classmethod
-    def get_processor(cls, filename: str, file_path: str):
+    def get_processor(
+            self, filename: str, file_path: str
+    ) -> TxtProcessor | DocxProcessor | DocProcessor | PNGProcessor | JPGProcessor | PDFProcessor | XMLProcessor:
         """
         Получение класса для обработки файла по его расширению
         :param filename:
@@ -44,31 +42,42 @@ class DocumentProcessorSelector:
         :return:
         """
 
-        if not cls._is_supported_extension(filename):
+        if not self._is_supported_extension(file_name=filename):
             raise Exception("Unsupported filetype")
 
-        match cls._get_file_extension(filename):
+        match self._get_file_extension(filename):
             case ".txt":
-                return TxtProcessor
+                return TxtProcessor()
             case ".docx":
-                return DocxProcessor
+                return DocxProcessor(
+                    document_name=filename,
+                    file_path=file_path
+                )
             case ".doc":
-                return DocProcessor
+                return DocProcessor()
             case ".png":
-                return PNGProcessor
+                return PNGProcessor()
             case ".jpg":
-                return JPGProcessor
+                return JPGProcessor()
             case ".pdf":
-                return PDFProcessor
+                return PDFProcessor()
             case ".xml":
-                return XMLProcessor
+                return XMLProcessor()
             case _:
                 raise Exception("Unsupported filetype")
 
+    # def __init__(self, file_name, str, file_path: str):
+    #     self.get_processor(
+    #         filename=file_name,
+    #         file_path=file_path
+    #     )
+
 
 def main() -> None:
-    doc = DocxProcessor(
-        document_name="document.docx"
+
+    doc: DocxProcessor = DocumentProcessorSelector().get_processor(
+        filename="document.docx",
+        file_path=""
     )
 
     doc.stupid_phone_numbers_hiding()
@@ -79,11 +88,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    # main()
-
-    DocumentProcessorSelector._get_file_type("filename.txt")
-
-'''
-ОГРН 1026103165241,
-ИНН 6163027810, КПП 616301001
-'''
+    main()

@@ -1,3 +1,7 @@
+import re
+from docx import Document
+
+
 class DocxProcessor:
     # PHONE_NUMBER_REGEXP = r'^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$'
     PHONE_NUMBER_REGEXP: str = r'\b\+?[7,8](\s*\d{3}\s*\d{3}\s*\d{2}\s*\d{2})\b'
@@ -15,7 +19,7 @@ class DocxProcessor:
     def save_document(self):
         self.document.save(f'{self.output_document_name}.docx')
 
-    def __init__(self, document_name: str):
+    def __init__(self, document_name: str, file_path: str):
         self.document_name: str = document_name
         self.output_document_name: str = f'{self.document_name}_anonymized'
 
