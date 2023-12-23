@@ -19,7 +19,7 @@ class PDFProcessor:
         anonym = pdfAnonymizer(path_to_pdf=f'{settings.MEDIA_ROOT}{self.document_name}')
 
         anonym.anonymize(
-            output_path=f'{settings.MEDIA_ROOT}anon_{self.document_name}.pdf',
+            output_path=f'{settings.MEDIA_ROOT}anon_{self.document_name}',
             remove_metadata=True,
             fill='green',
             outline='green'
