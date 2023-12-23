@@ -19,7 +19,8 @@ class DocxProcessor:
         return '#' * 13
 
     def save_document(self):
-        self.document.save(f'{settings.MEDIA_ROOT}anon_{self.output_document_name}')
+        # self.document.save(f'{settings.MEDIA_ROOT}anon_{self.output_document_name}')
+        self.document.save(f'{settings.MEDIA_ROOT}{self.output_document_name}')
 
     def __init__(self, document_name: str):
         self.document_name: str = document_name

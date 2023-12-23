@@ -53,12 +53,14 @@ class UploadFilesView(APIView):
         # doc.save_document()
 
         doc = DocxProcessor(
-            document_name=file_name
+            document_name=f'{file_name}'
         )
 
         doc.anonymize_doc()
 
         doc.save_document()
+
+
 
         # response = FileResponse(open(f'{settings.MEDIA_ROOT}anon_{file_name}', 'rb'))
 
