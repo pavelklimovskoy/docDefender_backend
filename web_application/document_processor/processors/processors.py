@@ -60,7 +60,9 @@ class DocumentProcessorSelector:
             case ".jpg":
                 return JPGProcessor()
             case ".pdf":
-                return PDFProcessor()
+                return PDFProcessor(
+                    document_name=filename,
+                )
             case ".xml":
                 return XMLProcessor()
             case _:
