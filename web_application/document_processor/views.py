@@ -53,19 +53,6 @@ class UploadFilesView(APIView):
 
         doc.save_document()
 
-        # doc = DocxProcessor(
-        #     document_name=f'{file_name}'
-        # )
-        #
-        # doc.anonymize_doc()
-        #
-        # doc.save_document()
-
-
-
-        # response = FileResponse(open(f'{settings.MEDIA_ROOT}anon_{file_name}', 'rb'))
-
-        # return Response(new_file.id)
         return JsonResponse({'id': new_file.id})
 
     def get(self, request, format=None):
