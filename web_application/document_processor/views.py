@@ -44,21 +44,21 @@ class UploadFilesView(APIView):
         )
         new_file.save()
 
-        # doc = TxtProcessor(
-        #     document_name=file_name
-        # )
-        #
-        # doc.anonymize_doc()
-        #
-        # doc.save_document()
-
-        doc = DocxProcessor(
-            document_name=f'{file_name}'
+        doc = TxtProcessor(
+            document_name=file_name
         )
 
         doc.anonymize_doc()
 
         doc.save_document()
+
+        # doc = DocxProcessor(
+        #     document_name=f'{file_name}'
+        # )
+        #
+        # doc.anonymize_doc()
+        #
+        # doc.save_document()
 
 
 
