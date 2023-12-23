@@ -79,11 +79,11 @@ WSGI_APPLICATION = 'docDefender_backend.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "HOST": os.environ.get("DB_HOST"),
-        "PORT": os.environ.get("DB_PORT"),
+        "NAME": "django-db",
+        "USER": "database-member-2023",
+        "PASSWORD": "maybe-strong-password-!!!",
+        "HOST": "127.0.0.1",
+        "PORT": "5000",
     }
 }
 

@@ -8,5 +8,5 @@ class FileModel(models.Model):
     time_upload = models.TimeField(auto_now=True)
     date_upload = models.DateField(auto_now=True)
 
-    file = models.FileField()
-    file_url = models.URLField()
+    # file = models.FileField()
+    file_path = models.CharField()

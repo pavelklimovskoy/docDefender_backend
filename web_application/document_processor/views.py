@@ -1,4 +1,4 @@
-from django.http import FileResponse
+from django.http import FileResponse, JsonResponse
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -8,6 +8,7 @@ from docDefender_backend import settings
 from docDefender_backend.settings import MEDIA_ROOT
 from .processors.docx_processor import DocxProcessor
 from .processors.txt_processor import TxtProcessor
+from .models import FileModel
 
 
 # Create your views here.
@@ -37,6 +38,12 @@ class UploadFilesView(APIView):
         file = default_storage.open(file_name)
         file_url = default_storage.url(file_name)
 
+        new_file: FileModel = FileModel(
+            file_path=f'{settings.MEDIA_ROOT}anon_{file_name}',
+            file_name=file_name
+        )
+        new_file.save()
+
         # doc = TxtProcessor(
         #     document_name=file_name
         # )
@@ -53,6 +60,17 @@ class UploadFilesView(APIView):
 
         doc.save_document()
 
-        response = FileResponse(open(f'{settings.MEDIA_ROOT}anon_{file_name}', 'rb'))
+        # response = FileResponse(open(f'{settings.MEDIA_ROOT}anon_{file_name}', 'rb'))
+
+        # return Response(new_file.id)
+        return JsonResponse({'id': new_file.id})
+
+    def get(self, request, format=None):
+
+        id: int = int(request.query_params.get('id'))
+
+        file_path: str = FileModel.objects.get(id=id).file_path
+
+        response = FileResponse(open(file_path, 'rb'))
 
         return response
