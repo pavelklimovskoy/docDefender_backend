@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-d6x6=pdji4x=$5(udz=c98oufc@db1&sqx*5rk$x&_miret_!&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '192.168.43.208', '127.0.0.1', 'new-champion-halibut.ngrok-free.app']
 
 # Application definition
 
@@ -38,11 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #
     'rest_framework',
+    'corsheaders',
     'document_processor.apps.DocumentProcessorConfig'
     # 'experience_application.apps.ExperienceApplicationConfig',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -139,8 +141,21 @@ STATIC_URL = "static/"
 # STATIC_ROOT = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media\\')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+CORS_ORIGIN_ALLOW_ALL = True
 
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'ngrok-skip-browser-warning',
+)
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 

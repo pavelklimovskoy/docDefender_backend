@@ -9,7 +9,7 @@ from docx import Document
 
 
 class DocumentProcessorSelector:
-    SUPPORTED_EXTENSION: list[str] = [".doc", "docx", ".txt", "png", "jpg", "pdf", "xml"]
+    SUPPORTED_EXTENSION: list[str] = [".doc", "docx", ".txt", "png", "jpg", "pdf", "xls", "xlsx"]
 
     def _is_supported_extension(self, file_name: str) -> bool:
         if file_name[-3:] in self.SUPPORTED_EXTENSION:
@@ -54,17 +54,30 @@ class DocumentProcessorSelector:
                     document_name=filename,
                 )
             case ".doc":
-                return DocProcessor()
+                return DocProcessor(
+                    document_name=filename,
+                )
             case ".png":
-                return PNGProcessor()
+                return PNGProcessor(document_name=filename, )
             case ".jpg":
-                return JPGProcessor()
+                return JPGProcessor(document_name=filename, )
             case ".pdf":
                 return PDFProcessor(
                     document_name=filename,
                 )
+            case ".xls":
+                return XMLProcessor(
+                    document_name=filename,
+                )
             case ".xml":
-                return XMLProcessor()
+                return XMLProcessor(
+                    document_name=filename,
+                )
+
+            case ".xlsx":
+                return XMLProcessor(
+                    document_name=filename,
+                )
             case _:
                 raise Exception("Unsupported filetype")
 
@@ -76,7 +89,6 @@ class DocumentProcessorSelector:
 
 
 def main() -> None:
-
     doc: DocxProcessor = DocumentProcessorSelector().get_processor(
         filename="document.docx",
     )
