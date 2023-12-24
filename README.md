@@ -14,7 +14,6 @@
 - Docker
 - Nginx
 - Postgres
-- Swagger
 - Faker
 - Pytorch
 - Cv2
